@@ -1,0 +1,124 @@
+<!-- 
+    Name: Ethan Yu
+    Email: Ethan_Yu@student.uml.edu
+    Github: https://github.com/Yuniversality?tab=repositories
+    HTML File for Assignment 3: Creating a Dynamic Multiplication Table
+-->
+
+<!-- 
+ Sources Used:
+ Bootstrap Forms Documentation: https://getbootstrap.com/docs/4.6/components/forms/
+ Getting HTML values to Javascript: https://stackoverflow.com/questions/3547035/getting-html-form-values/41262933#41262933 
+ Generating a dynamic table: https://www.mysamplecode.com/2012/04/generate-html-table-using-javascript.html 
+ Making a scrollable div in Bootstrap: https://stackoverflow.com/questions/40112618/bootstrap4-adding-scrollbar-to-div/53357364
+ Bootstrap tables documentation: https://getbootstrap.com/docs/4.6/content/tables/ 
+ HTML Dynamic Table: https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx 
+ JavaScript | Adding a class name to the element: https://www.geeksforgeeks.org/javascript-adding-a-class-name-to-the-element/ 
+ JavaScript Functions: https://www.w3schools.com/js/js_functions.asp 
+ HTML tbody: https://www.w3schools.com/tags/tag_tbody.asp
+ Dynamically Add or Remove Table Rows in JavaScript and Save Data to a Database: https://www.encodedna.com/javascript/dynamically-add-remove-rows-to-html-table-using-javascript-and-save-data.htm 
+ How To Center a div Horizontally in Bootstrap 4: https://bootstrapcreative.com/how-to-center-a-div-horizontally-in-bootstrap-4/
+ Bootstrap Flex: https://getbootstrap.com/docs/4.0/utilities/flex/
+ How to Create a Dynamic Table with Javascript: https://www.itgeared.com/articles/1503-how-to-create-dynamic-html-table-javascript/ 
+ HTML content modification using Javascript: https://www.geeksforgeeks.org/html-content-modification-using-javascript/ 
+ Number validation in JavaScript: https://www.geeksforgeeks.org/number-validation-in-javascript/#:~:text=We%20have%20used%20isNaN(),alphabets%20then%20it%20returns%20false. 
+ Spacing out Table Cells: https://stackoverflow.com/questions/339923/set-cellpadding-and-cellspacing-in-css
+
+ Text shows then disappears on page reload; javascript onclick event: https://stackoverflow.com/questions/46570421/text-shows-then-disappears-on-page-reload-javascript-onclick-event/46570623
+ Window.sessionStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+ Persisting DOM changes after clicking a link and then pressing the Back button: https://stackoverflow.com/questions/7058634/persisting-dom-changes-after-clicking-a-link-and-then-pressing-the-back-button
+ How to prevent page from reloading after form submit - JQuery: https://stackoverflow.com/questions/45634088/how-to-prevent-page-from-reloading-after-form-submit-jquery/45634140
+ isNaN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+ Remove all the child elements of a DOM node in JavaScript: https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/ 
+ Bootstrap Center Vertical and Horizontal Alignment: https://stackoverflow.com/questions/42388989/bootstrap-center-vertical-and-horizontal-alignment
+ How to make a scrolling table with dynamic data: https://stackoverflow.com/questions/31055446/how-to-make-a-scrolling-table-with-dynamic-data 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Stylesheets -->
+        <!-- Link to my own stylesheet -->
+        <link rel="stylesheet" href="css/stylesheet.css" />
+        <!-- Link to Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+        <!-- Link to jQuery CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <title>Ethan Yu's Multiplication Table Generator</title>
+    </head>
+
+    <body>
+        <!-- Website title label which is centered -->
+        <h1 class="d-flex justify-content-center" id="website-banner-title"> Multiplication Table Generator </h1>
+
+        <!-- Paragraph label to display warning messages in -->
+        <h4 class="d-flex justify-content-center" id="general-error-messages-label"> </h2>
+
+        <!-- The user input form -->
+        <!-- <div class="col-sm-5 mx-auto" id="form-div"> -->
+        <!-- <div class="d-inline-flex justify-content-around" id="master-div"> -->
+        <!-- <div class="d-inline-flex" id="master-div"> -->
+        <div class="d-flex flex-row justify-content-center align-items-center" id="master-div">
+            <!--</div> <div class="d-inline-flex justify-content-center" id="form-div"> -->
+            <div class="justify-content-around" id="form-div">
+                <form>
+                    <div class="form-group">
+                    <!-- <div class="form-group row col-sm-10"> -->
+                        <label for="directions-for-user" class="col-form-label col-sm-12"> Please enter table ranges </label>
+                        
+                        <label for="minimum-column-value" class="col-form-label col-sm-6"> Minimum Column Value </label>
+                        <div class="col-sm-6">
+                            <input type="input-min-col-val" class="form-control" id="minimum-column-value" value=1>
+                            <p id="min-col-val-warning"> </p>
+                        </div>
+                        
+                        <label for="maximum-column-value" class="col-form-label col-sm-6"> Maximum Column Value </label>
+                        <div class="col-sm-6">
+                            <input type="input-max-col-val" class="form-control" id="maximum-column-value" value=3>
+                            <p id="max-col-val-warning"> </p>
+                        </div>
+                        
+                        <label for="minimum-row-value" class="col-form-label col-sm-6"> Minimum Row Value </label>
+                        <div class="col-sm-6">
+                            <input type="input-min-row-val" class="form-control" id="minimum-row-value" value=1>
+                            <p id="min-row-val-warning"> </p>
+                        </div>
+        
+                        <label for="maximum-row-value" class="col-form-label col-sm-6"> Maximum Row Value </label>
+                        <div class="col-sm-6">
+                            <input type="input-max-row-val" class="form-control" id="maximum-row-value" value=3>
+                            <p id="max-row-val-warning"> </p>
+                        </div>
+                        
+                        <!-- Clicking this button should call the function in the Javascript file -->
+                        <div class="col-sm-12">
+                            <button id="generate-table" type="button" class="btn btn-primary" onclick="generateDynamicTable()"> Generate Table </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    
+            <!-- Creating the table -->
+            <!-- <div class="table-responsive table-striped d-flex justify-content-around" id="dynamic-table-div"> -->
+            <!-- <div class="table-responsive table-striped col-sm-7 mx-auto" id="dynamic-table-div"> -->
+            <!-- <div class="table-responsive table-striped d-inline-flex justify-content-center" id="dynamic-table-div"> -->
+            <!-- <div class="table-striped overflow-auto" id="dynamic-table-div"> -->
+            <div class="table-striped" id="dynamic-table-div">
+                <table id="dynamic-table">
+                    <tbody id="dynamic-tbody">
+    
+                    </tbody>
+                </table>     
+            </div>
+        </div>
+        
+        <!-- Points to the Javascript file -->
+        <script src="js/dynamic-table.js"></script> 
+    </body>
+</html>

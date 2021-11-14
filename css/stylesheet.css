@@ -1,0 +1,67 @@
+/*
+    Name: Ethan Yu
+    Email: Ethan_Yu@student.uml.edu
+    Github: https://github.com/Yuniversality?tab=repositories
+    CSS File for Assignment 3: Creating a Dynamic Multiplication Table
+*/
+
+body {
+    background-image: url("/images/cube-background.jpg");
+}
+
+h4, p {
+    color: rgb(253, 0, 0);
+}
+
+#form-div {
+    background-color: floralwhite;
+    /*border-style: dotted;*/
+    font-style: italic;
+}
+
+/* Changes text color and spaces the table from the rest of page using padding */
+#dynamic-table {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: floralwhite;
+}
+
+/* Creates a border around each cell and increases the size of cell contents */
+table {
+    border-collapse: collapse;
+    font-size: 150%;
+    /*width:50%;*/
+    /*height:25%;*/
+    /*border-style: double;*/
+}
+
+#dynamic-table-div {
+    overflow:hidden;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 500px;
+    width: 500px;
+}
+
+/* Spaces out each table cell by 6 px */
+td {
+    padding: 8px;
+}
+
+/* Makes the column headers have white text and black background */
+tr:first-child td {
+    color: black;
+    background-color: white;
+}
+
+/* Makes the row headers have white text and black background */
+td:first-of-type {
+    color: black;
+    background-color: white;
+}
+
+/* Makes the top left corner cell transparent */
+tr:first-child td:first-child {
+    color: transparent;
+    background-color: transparent;
+}

@@ -30,17 +30,14 @@ h4, p {
 table {
     border-collapse: collapse;
     font-size: 150%;
-    /*width:50%;*/
-    /*height:25%;*/
-    /*border-style: double;*/
 }
 
 #dynamic-table-div {
     overflow:hidden;
     overflow-x: scroll;
     overflow-y: scroll;
-    height: 500px;
-    width: 500px;
+    max-height: 450px;
+    max-width: 450px;
 }
 
 /* Spaces out each table cell by 6 px */

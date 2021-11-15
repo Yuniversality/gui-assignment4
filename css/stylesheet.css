@@ -6,7 +6,7 @@
 */
 
 body {
-    background-image: url("/images/cube-background.jpg");
+    background-image: url("../images/cube-background.jpg");
 }
 
 h4, p {

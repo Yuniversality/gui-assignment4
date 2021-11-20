@@ -89,16 +89,16 @@ $("form").validate({
     // Specify validation error messages
     messages: {
         minColVal: {
-            required: "Please enter a number",
+            required: "Please enter the minimum column number",
         },
         maxColVal: {
-            required: "Please enter a number",
+            required: "Please enter the maximum column number",
         },
         minRowVal: {
-            required: "Please enter a number",
+            required: "Please enter the minimum row number",
         },
         maxRowVal: {
-            required: "Please enter a number",
+            required: "Please enter the maximum row number",
         }
     }
 });

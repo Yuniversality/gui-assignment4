@@ -27,11 +27,21 @@
  Text shows then disappears on page reload; javascript onclick event: https://stackoverflow.com/questions/46570421/text-shows-then-disappears-on-page-reload-javascript-onclick-event/46570623
  Window.sessionStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
  Persisting DOM changes after clicking a link and then pressing the Back button: https://stackoverflow.com/questions/7058634/persisting-dom-changes-after-clicking-a-link-and-then-pressing-the-back-button
- How to prevent page from reloading after form submit - JQuery: https://stackoverflow.com/questions/45634088/how-to-prevent-page-from-reloading-after-form-submit-jquery/45634140
- isNaN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
  Remove all the child elements of a DOM node in JavaScript: https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/ 
  Bootstrap Center Vertical and Horizontal Alignment: https://stackoverflow.com/questions/42388989/bootstrap-center-vertical-and-horizontal-alignment
  How to make a scrolling table with dynamic data: https://stackoverflow.com/questions/31055446/how-to-make-a-scrolling-table-with-dynamic-data 
+
+ jQuery Validation Plugin: https://jqueryvalidation.org/ 
+ How to Set Up Basic jQuery Form Validation in Two Minutes: https://www.sitepoint.com/basic-jquery-form-validation-tutorial/ 
+ HTML Input Types: https://www.w3schools.com/html/html_form_input_types.asp 
+ Jquery: Form validation not working: https://stackoverflow.com/questions/23590396/jquery-form-validation-not-working 
+ Validation using jQuery Validation Plugin: https://jazzteam.org/en/technical-articles/implementation-validation-with-jquery-validation-plugin/ 
+ How to prevent page from reloading after form submit - JQuery: https://stackoverflow.com/questions/45634088/how-to-prevent-page-from-reloading-after-form-submit-jquery/45634140 
+ Client-side form validation: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation 
+
+ Using the Tabs Widget: https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch03_TabsWidget.pdf
+ The Slider Widget: https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch06_SliderWidget.pdf
+
 -->
 
 <!DOCTYPE html>
@@ -47,9 +57,6 @@
         <!-- Link to Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-        <!-- Link to jQuery CDN -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
         <title>Ethan Yu's Multiplication Table Generator</title>
     </head>
 
@@ -61,54 +68,64 @@
         <h4 class="d-flex justify-content-center" id="general-error-messages-label"> </h2>
 
         <!-- The user input form -->
-        <!-- <div class="col-sm-5 mx-auto" id="form-div"> -->
-        <!-- <div class="d-inline-flex justify-content-around" id="master-div"> -->
-        <!-- <div class="d-inline-flex" id="master-div"> -->
-        <div class="d-flex flex-row justify-content-center align-items-center" id="master-div">
-            <!--</div> <div class="d-inline-flex justify-content-center" id="form-div"> -->
+        <div class="d-flex flex-row justify-content-center align-items-center col-sm-8" id="master-div">
             <div class="justify-content-around" id="form-div">
-                <form>
-                    <div class="form-group">
-                    <!-- <div class="form-group row col-sm-10"> -->
-                        <label for="directions-for-user" class="col-form-label col-sm-12"> Please enter table ranges </label>
-                        
-                        <label for="minimum-column-value" class="col-form-label col-sm-6"> Minimum Column Value </label>
-                        <div class="col-sm-6">
-                            <input type="input-min-col-val" class="form-control" id="minimum-column-value" value=1>
-                            <p id="min-col-val-warning"> </p>
-                        </div>
-                        
-                        <label for="maximum-column-value" class="col-form-label col-sm-6"> Maximum Column Value </label>
-                        <div class="col-sm-6">
-                            <input type="input-max-col-val" class="form-control" id="maximum-column-value" value=3>
-                            <p id="max-col-val-warning"> </p>
-                        </div>
-                        
-                        <label for="minimum-row-value" class="col-form-label col-sm-6"> Minimum Row Value </label>
-                        <div class="col-sm-6">
-                            <input type="input-min-row-val" class="form-control" id="minimum-row-value" value=1>
-                            <p id="min-row-val-warning"> </p>
-                        </div>
-        
-                        <label for="maximum-row-value" class="col-form-label col-sm-6"> Maximum Row Value </label>
-                        <div class="col-sm-6">
-                            <input type="input-max-row-val" class="form-control" id="maximum-row-value" value=3>
-                            <p id="max-row-val-warning"> </p>
-                        </div>
-                        
-                        <!-- Clicking this button should call the function in the Javascript file -->
-                        <div class="col-sm-12">
-                            <button id="generate-table" type="button" class="btn btn-primary" onclick="generateDynamicTable()"> Generate Table </button>
-                        </div>
+                <form id="form" name="form" class="col-sm-11">
+                    <label class="col-form-label"> Please enter table ranges </label>
+                    
+                    <!--
+                    <label for="minColVal" class="col-form-label col-sm-6"> Minimum Column Value </label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="minColVal" id="minColVal">
+                    </div>
+                    -->
+                    <div class="row">
+                        <label for="minColVal" class="col-form-label col-sm-8"> Minimum Column Value </label>
+                        <input type="number" class="form-control col-sm-4" name="minColVal" id="minColVal">
+                    </div>
+                    
+                    <!--
+                    <label for="maxColVal" class="col-form-label col-sm-6"> Maximum Column Value </label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="maxColVal" id="maxColVal">
+                    </div>
+                    -->
+                    <div class="row">
+                        <label for="maxColVal" class="col-form-label col-sm-8"> Maximum Column Value </label>
+                        <input type="number" class="form-control col-sm-4" name="maxColVal" id="maxColVal">
+                    </div>
+
+                    <!--
+                    <label for="minRowVal" class="col-form-label col-sm-6"> Minimum Row Value </label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="minRowVal" id="minRowVal">
+                    </div>
+                    -->
+                    <div class="row">
+                        <label for="minRowVal" class="col-form-label col-sm-8"> Minimum Row Value </label>
+                        <input type="number" class="form-control col-sm-4" name="minRowVal" id="minRowVal">
+                    </div>
+
+                    <!--
+                    <label for="maxRowVal" class="col-form-label col-sm-6"> Maximum Row Value </label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="maxRowVal" id="maxRowVal">
+                    </div>
+                    -->
+                    <div class="row">
+                        <label for="maxRowVal" class="col-form-label col-sm-8"> Maximum Row Value </label>
+                        <input type="number" class="form-control col-sm-4" name="maxRowVal" id="maxRowVal">
+                    </div>
+
+                    <!-- Clicking this button should call the function in the Javascript file -->
+                    <div class="col-sm-12">
+                        <!-- <button id="generate-table" type="button" class="btn btn-primary" onclick="generateDynamicTable()"> Generate Table </button> -->
+                        <button id="generate-table-button" type="submit" class="btn btn-primary"> Generate Table </button>
                     </div>
                 </form>
             </div>
     
             <!-- Creating the table -->
-            <!-- <div class="table-responsive table-striped d-flex justify-content-around" id="dynamic-table-div"> -->
-            <!-- <div class="table-responsive table-striped col-sm-7 mx-auto" id="dynamic-table-div"> -->
-            <!-- <div class="table-responsive table-striped d-inline-flex justify-content-center" id="dynamic-table-div"> -->
-            <!-- <div class="table-striped overflow-auto" id="dynamic-table-div"> -->
             <div class="table-striped" id="dynamic-table-div">
                 <table id="dynamic-table">
                     <tbody id="dynamic-tbody">
@@ -116,9 +133,14 @@
                     </tbody>
                 </table>     
             </div>
+
         </div>
         
-        <!-- Points to the Javascript file -->
+         <!-- Link to jQuery CDN -->
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Links to the jQuery Validation Javascript file -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+        <!-- Links to our Javascript file -->
         <script src="js/dynamic-table.js"></script> 
     </body>
 </html>

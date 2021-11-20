@@ -5,18 +5,34 @@
     CSS File for Assignment 3: Creating a Dynamic Multiplication Table
 */
 
+/* Background image for the webpage */
 body {
     background-image: url("../images/cube-background.jpg");
 }
 
-h4, p {
-    color: rgb(253, 0, 0);
-}
-
+/* Format background, text, and size of form */
 #form-div {
     background-color: floralwhite;
-    /*border-style: dotted;*/
     font-style: italic;
+    min-width: 40%;
+    min-height: 30%;
+}
+
+/* Add space after every form row */ 
+.row {
+    margin-bottom: 2%;
+}
+
+/* Add some extra space around the button */
+form button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Warnings are displayed in red */
+h4, .error {
+    color: #ff0000;
+    padding-left: 15%;
 }
 
 /* Changes text color and spaces the table from the rest of page using padding */
@@ -32,12 +48,14 @@ table {
     font-size: 150%;
 }
 
+/* Make the dynamic table scrollable and have a max size */
 #dynamic-table-div {
     overflow:hidden;
     overflow-x: scroll;
     overflow-y: scroll;
     max-height: 450px;
-    max-width: 450px;
+    max-width: 30%;
+    margin-left: 5%;
 }
 
 /* Spaces out each table cell by 6 px */

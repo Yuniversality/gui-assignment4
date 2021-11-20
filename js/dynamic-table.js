@@ -5,81 +5,10 @@
     Javascript File for Assignment 3: Creating a Dynamic Multiplication Table
 */
 
-// Retrieve user input from the forms in the HTML and returns the values in an array
-function getValues()
-{
-    let minCols = document.getElementById('minimum-column-value').value;
-    let maxCols = document.getElementById('maximum-column-value').value;
-    let minRows = document.getElementById('minimum-row-value').value;
-    let maxRows = document.getElementById('maximum-row-value').value;
-    //document.write(minCols + maxCols + minRows + maxRows);
-    return [minCols, maxCols, minRows, maxRows];
-}
-
-// Check to see if user input is numbers and if the min is greater than max
-function checkValues(inputValues)
-{
-    // Keep track of how many user input error there are
-    // If 0, then no errors, if nonzero, then the user needs to fix their input
-    let errorVal = 0;
-    
-    // Reset the text for all the warning labels
-    document.getElementById("general-error-messages-label").innerHTML = "";
-    document.getElementById("min-col-val-warning").textContent = "";
-    document.getElementById("max-col-val-warning").textContent = "";
-    document.getElementById("min-row-val-warning").textContent = "";
-    document.getElementById("max-row-val-warning").textContent = "";
-    
-    // Check if minCols input is valid
-    if (isNaN(inputValues[0]))
-    {
-        document.getElementById("min-col-val-warning").textContent = "Minimum Column Value is Invalid";
-        errorVal++;
-    }
-
-    // Check if maxCols input is valid
-    if (isNaN(inputValues[1]))
-    {
-        document.getElementById("max-col-val-warning").textContent = "Maximum Column Value is Invalid";
-        errorVal++;
-    }
-
-    // Check if minRows input is valid
-    if (isNaN(inputValues[2]))
-    {
-        document.getElementById("min-row-val-warning").textContent = "Minimum Row Value is Invalid";
-        errorVal++;
-    }
-
-    // Check if maxRows input is valid
-    if (isNaN(inputValues[3]))
-    {
-        document.getElementById("max-row-val-warning").textContent = "Maximum Row Value is Invalid";
-        errorVal++;
-    }
-
-    // Check to see if minCols and maxCols values make sense
-    if (inputValues[0] > inputValues[1])
-    {
-        document.getElementById("general-error-messages-label").innerHTML = document.getElementById("general-error-messages-label").innerHTML +
-            "The maximum column value must be larger than the minimum value. <br>";
-        errorVal++;
-    }
-
-    // Check to see if minRows and maxRows values make sense
-    if (inputValues[2] > inputValues[3])
-    {
-        document.getElementById("general-error-messages-label").innerHTML = document.getElementById("general-error-messages-label").innerHTML +
-            "The maximum row value must be larger than the minimum value.";
-        errorVal++;
-    }
-
-    return errorVal;
-}
+// Vanilla JavaScript section
 
 function clearTable()
 {
-    //let tableBody = document.getElementById("dynamic-tbody");
     let tableBody = document.querySelector("tbody");
     let tableRow = tableBody.lastElementChild;
     while (tableRow)
@@ -92,32 +21,26 @@ function clearTable()
 // Generate the dynamic table by adding to the HTML (if user input is valid)
 function generateDynamicTable() 
 {   
+    // Clear the current table displayed
     clearTable();
-    // First get the user input from getValues() and then check to see if they're valid
-    let inputValues = getValues();
-    let errorPresent = checkValues(inputValues);
-
-    // If there's an error with the user input, then don't generate the table
-    if (errorPresent)
-    {
-        return;
-    }
 
     // Put the user inputs into their own variables
-    let minCols = inputValues[0];
-    let maxCols = inputValues[1];
-    let minRows = inputValues[2];
-    let maxRows = inputValues[3];
+    let minCols = document.getElementById('minColVal').value;
+    let maxCols = document.getElementById('maxColVal').value;
+    let minRows = document.getElementById('minRowVal').value;
+    let maxRows = document.getElementById('maxRowVal').value;
 
-    // 
+    // Get the place for the table and create the first row
     let tableBody = document.getElementById("dynamic-tbody");
     let columnHeaderRow = document.createElement("tr");
     tableBody.appendChild(columnHeaderRow);
 
+    // Create the top-leftmost cell
     let topLeftCornerCell = document.createElement("td");
     topLeftCornerCell.textContent = 0;
     columnHeaderRow.appendChild(topLeftCornerCell);
 
+    // Fill in the rest of the first row
     for (let i = minCols; i <= maxCols; i++)
     {
         let newCell = document.createElement("td");
@@ -125,6 +48,7 @@ function generateDynamicTable()
         columnHeaderRow.appendChild(newCell);
     }
 
+    // Create the rest and fill in the rest of the table cells
     for (let i = minRows; i <= maxRows; i++)
     {
         let newRow = document.createElement("tr");
@@ -140,3 +64,51 @@ function generateDynamicTable()
         }
     }
 }
+
+// jQuery Section 
+
+$("form").validate({
+    // Specify validation rules
+    rules: {
+        // Key name on the left side is the name attribute of an input field 
+        // Validation rules are defined on the right side
+        minColVal: {
+            required: true
+        },
+        maxColVal: {
+            required: true,
+        },
+        minRowVal: {
+            required: true,
+        },
+        maxRowVal: {
+            required: true,
+        }
+    },
+
+    // Specify validation error messages
+    messages: {
+        minColVal: {
+            required: "Please enter a number",
+        },
+        maxColVal: {
+            required: "Please enter a number",
+        },
+        minRowVal: {
+            required: "Please enter a number",
+        },
+        maxRowVal: {
+            required: "Please enter a number",
+        }
+    }
+});
+
+// When the "Generate Table" button is clicked, create the table
+// but do not refresh the page
+$('#generate-table-button').click(function() {
+    if ($("#form").valid())
+    {
+        generateDynamicTable();
+        event.preventDefault();
+    }
+});

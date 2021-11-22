@@ -7,6 +7,7 @@
 
 // Vanilla JavaScript section
 
+// Remove old table to make space for new one
 function clearTable()
 {
     let tableBody = document.querySelector("tbody");
